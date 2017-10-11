@@ -4,4 +4,4 @@ Library		XTFLibrary
 
 *** Test Cases ***
 Test 1
-	aaabp
+	Create 	gogu.cfg	vasile.cfg

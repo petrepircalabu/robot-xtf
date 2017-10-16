@@ -7,7 +7,7 @@ class XTFLibrary:
         self._manager = XLManager()
 
     def Create(self, *args):
-        self._manager.Create(args)
+        self._manager.Create(*args)
 
     def aaabp(self):
         print "create guest "

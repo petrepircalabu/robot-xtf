@@ -6,8 +6,11 @@ class XTFLibrary:
         #TODO: Singleton this
         self._manager = XLManager()
 
-    def Create(self, *args):
-        self._manager.Create(*args)
+    def CreateVM(self, *args):
+        self._manager.CreateVM(*args)
 
-    def aaabp(self):
-        print "create guest "
+    def GetDomID(self, name):
+        return self._manager.GetDomID(name)
+
+    def DestroyVM(self, domid):
+        return self._manager.DestroyVM(domid)

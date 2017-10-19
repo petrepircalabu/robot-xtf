@@ -14,3 +14,6 @@ class XTFLibrary:
 
     def DestroyVM(self, domid):
         return self._manager.DestroyVM(domid)
+
+    def ResumeVM(self, domid):
+        return self._manager.ResumeVM(domid)

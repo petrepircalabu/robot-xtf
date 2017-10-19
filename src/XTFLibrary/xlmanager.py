@@ -34,11 +34,22 @@ class XLManager:
 
         if domid == 0:
             raise XLException("DestroyVM: Cannot destroy Dom0");
-        print domid
 
         destroy = Popen(cmd, stdout = PIPE, stderr = PIPE)
         _, stderr = destroy.communicate()
 
         if destroy.returncode:
             raise XLException("Failed to get VM's DomID", stderr)
+
+    def ResumeVM(self, domid):
+        cmd = ['xl', 'unpause', str(domid)]
+
+        if domid == 0:
+            raise XLException("ResumeVM: Invalid parameter");
+
+        resume = Popen(cmd, stdout = PIPE, stderr = PIPE)
+        _, stderr = resume.communicate()
+
+        if resume.returncode:
+            raise XLException("Failed to resume VM", stderr)
 

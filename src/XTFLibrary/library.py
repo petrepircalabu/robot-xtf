@@ -6,14 +6,14 @@ class XTFLibrary:
         #TODO: Singleton this
         self._manager = XLManager()
 
-    def CreateVM(self, *args):
-        self._manager.CreateVM(*args)
+    def Create(self, *args):
+        return self._manager.Create(*args)
 
     def GetDomID(self, name):
         return self._manager.GetDomID(name)
 
-    def DestroyVM(self, domid):
-        return self._manager.DestroyVM(domid)
+    def Destroy(self, domid):
+        return self._manager.Destroy(domid)
 
-    def ResumeVM(self, domid):
-        return self._manager.ResumeVM(domid)
+    def Resume(self, domid):
+        return self._manager.Resume(domid)

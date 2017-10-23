@@ -9,7 +9,7 @@ class XLManager:
     def __init__(self):
         pass
 
-    def CreateVM(self, *args):
+    def Create(self, *args):
         cmd = ['xl', 'create', '-p'] + list(args)
 
         create = Popen(cmd, stdout = PIPE, stderr = PIPE)
@@ -29,7 +29,7 @@ class XLManager:
 
         return long(_)
 
-    def DestroyVM(self, domid):
+    def Destroy(self, domid):
         cmd = ['xl', 'destroy', str(domid)]
 
         if domid == 0:
@@ -41,11 +41,11 @@ class XLManager:
         if destroy.returncode:
             raise XLException("Failed to get VM's DomID", stderr)
 
-    def ResumeVM(self, domid):
+    def Resume(self, domid):
         cmd = ['xl', 'unpause', str(domid)]
 
         if domid == 0:
-            raise XLException("ResumeVM: Invalid parameter");
+            raise XLException("Resume: Invalid parameter");
 
         resume = Popen(cmd, stdout = PIPE, stderr = PIPE)
         _, stderr = resume.communicate()

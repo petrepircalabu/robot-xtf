@@ -1,5 +1,7 @@
 from subprocess import Popen, PIPE, call as subproc_call
 
+import imp
+
 class XLException(Exception):
     """ Errors relating to xtf-runner itself """
 
@@ -9,14 +11,23 @@ class XLManager:
     def __init__(self):
         pass
 
-    def Create(self, *args):
-        cmd = ['xl', 'create', '-p'] + list(args)
+    def _get_config(self, config_file):
+        code = open(config_file)
+        module = imp.new_module(config_file)
+        exec code in module.__dict__
+        return module
+
+    def Create(self, config_file):
+        cmd = ['xl', 'create', '-p', config_file]
+        config = self._get_config(config_file)
 
         create = Popen(cmd, stdout = PIPE, stderr = PIPE)
         _, stderr = create.communicate()
 
         if create.returncode:
             raise XLException("Failed to create VM", stderr)
+
+        return self.GetDomID(config.name)
 
     def GetDomID(self, name):
         cmd = ['xl', 'domid', name]

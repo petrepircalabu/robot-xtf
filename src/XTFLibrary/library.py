@@ -6,8 +6,8 @@ class XTFLibrary:
         #TODO: Singleton this
         self._manager = XLManager()
 
-    def Create(self, *args):
-        return self._manager.Create(*args)
+    def Create(self, config_file):
+        return self._manager.Create(config_file)
 
     def GetDomID(self, name):
         return self._manager.GetDomID(name)

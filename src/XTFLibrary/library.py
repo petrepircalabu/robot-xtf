@@ -17,3 +17,6 @@ class XTFLibrary:
 
     def Resume(self, domid):
         return self._manager.Resume(domid)
+
+    def WaitForPattern(self, domid, pattern, timeout):
+        return self._manager.WaitForPattern(domid, pattern, timeout)

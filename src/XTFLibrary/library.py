@@ -12,8 +12,8 @@ class XTFLibrary:
     def GetDomID(self, name):
         return self._manager.GetDomID(name)
 
-    def Destroy(self, domid):
-        return self._manager.Destroy(domid)
+    def Cleanup(self, domid, timeout):
+        return self._manager.Cleanup(domid, timeout)
 
     def Resume(self, domid):
         return self._manager.Resume(domid)

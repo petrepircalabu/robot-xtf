@@ -53,18 +53,16 @@ class XLManager:
 
         vm_info.console.expect(pattern, long(timeout))
 
-    def Destroy(self, domid):
-        cmd = ['xl', 'destroy', str(domid)]
-
-        while self._vms[domid].console.isalive():
-            print "Waiting...."
+    def Cleanup(self, domid, timeout):
+        # TODO: Parameter check
+        remaining = long(timeout)
+        while remaining > 0:
+            if not self._vms[domid].console.isalive():
+                return
             time.sleep(1)
+            remaining = remaining - 1
 
-        if not self._vms[domid].console.isalive():
-            print "Process exited"
-            return
-
-        print "destroying process"
+        cmd = ['xl', 'destroy', str(domid)]
 
         destroy = Popen(cmd, stdout = PIPE, stderr = PIPE)
         _, stderr = destroy.communicate()

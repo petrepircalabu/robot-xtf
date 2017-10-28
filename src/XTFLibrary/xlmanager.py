@@ -51,16 +51,15 @@ class XLManager:
     def WaitForPattern(self, domid, pattern, timeout):
         vm_info = self._vms[domid]
 
-        vm_info.console.expect(pattern, long(timeout))
+        vm_info.console.expect(pattern, timeout)
 
     def Cleanup(self, domid, timeout):
         # TODO: Parameter check
-        remaining = long(timeout)
-        while remaining > 0:
+        while timeout > 0:
             if not self._vms[domid].console.isalive():
                 return
             time.sleep(1)
-            remaining = remaining - 1
+            timeout = timeout - 1
 
         cmd = ['xl', 'destroy', str(domid)]
 

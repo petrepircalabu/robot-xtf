@@ -22,3 +22,6 @@ class XTFLibrary:
 
     def WaitForPattern(self, domid, pattern, timeout):
         return self._manager.WaitForPattern(domid, pattern, timestr_to_secs(timeout))
+
+    def WaitForCompletion(self, domid):
+        return self._manager.WaitForCompletion(domid)

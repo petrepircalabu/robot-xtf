@@ -1,3 +1,4 @@
+from xtftest import XTFResult
 from subprocess import Popen, PIPE, call as subproc_call
 
 import imp
@@ -52,6 +53,24 @@ class XLManager:
         vm_info = self._vms[domid]
 
         vm_info.console.expect(pattern, timeout)
+
+    def WaitForCompletion(self, domid):
+        vm_info = self._vms[domid]
+
+        pattern = ["Test result: " + str(XTFResult(XTFResult.SUCCESS)),
+                   "Test result: " + str(XTFResult(XTFResult.SKIP)),
+                   "Test result: " + str(XTFResult(XTFResult.ERROR)),
+                   "Test result: " + str(XTFResult(XTFResult.FAILURE)),
+                   pexpect.EOF,    # XTFResult.CRASH
+                   pexpect.TIMEOUT,# XTFResult.TIMEOUT
+                   ]
+
+        ret = XTFResult(vm_info.console.expect(pattern))
+
+        if ret in [XTFResult.SUCCESS, XTFResult.SKIP]:
+            return ret
+
+        raise ret
 
     def Cleanup(self, domid, timeout):
         # TODO: Parameter check
